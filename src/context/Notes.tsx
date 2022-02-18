@@ -5,13 +5,22 @@ import type { Note } from "@/types";
 interface Props {
   activeNoteId: string | null;
   notes: Note[];
-  setActiveId?: (id: string) => void;
-  addNote?: () => void;
-  deleteNote?: (id: string) => void;
-  updateNote?: (updatedNote: Note) => void;
+  setActiveNoteId: (id: string) => void;
+  addNote: () => void;
+  deleteNote: (id: string) => void;
+  updateNote: (updatedNote: Note) => void;
 }
 
-const NotesContext = createContext<Props>({ notes: [], activeNoteId: null });
+const initialState = {
+  activeNoteId: null,
+  notes: [],
+  setActiveNoteId: () => {},
+  addNote: () => {},
+  deleteNote: () => {},
+  updateNote: () => {},
+};
+
+const NotesContext = createContext<Props>(initialState);
 
 export const useNotesContext = () => useContext(NotesContext);
 
