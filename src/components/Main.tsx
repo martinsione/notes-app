@@ -1,6 +1,7 @@
-import { ChangeEvent } from "react";
 import ReactMarkdown from "react-markdown";
+import { ChangeEvent } from "react";
 import { useNotesContext } from "@/context/Notes";
+import "github-markdown-css/github-markdown.css";
 
 export default function Main() {
   const { activeNoteId, notes, updateNote } = useNotesContext();
@@ -20,7 +21,7 @@ export default function Main() {
     <>
       {activeNote ? (
         <div className="w-full flex p-10 gap-5">
-          <div className="w-1/2 flex flex-col">
+          <div className="w-full flex flex-col">
             <input
               autoFocus
               className="text-4xl focus:outline-none mb-6"
@@ -37,8 +38,8 @@ export default function Main() {
               value={activeNote.content}
             />
           </div>
-          <div className="w-1/2">
-            <h1>{activeNote.title}</h1>
+          <div className="w-full preview markdown-body">
+            <h1>{activeNote.title || "Untitled"}</h1>
             <ReactMarkdown>{activeNote.content}</ReactMarkdown>
           </div>
         </div>
