@@ -3,32 +3,35 @@ import { v4 as uuid } from "uuid";
 import type { Note } from "@/types";
 
 interface Props {
-  activeNoteId: string | undefined;
+  activeNoteId: string | null;
   notes: Note[];
-  [x: string]: any;
+  setActiveId?: (id: string) => void;
+  addNote?: () => void;
+  deleteNote?: (id: string) => void;
+  updateNote?: (updatedNote: Note) => void;
 }
 
-const initialValue = {
-  activeNoteId: undefined,
-  notes: [],
-};
-
-const NotesContext = createContext<Props>(initialValue);
+const NotesContext = createContext<Props>({ notes: [], activeNoteId: null });
 
 export const useNotesContext = () => useContext(NotesContext);
 
 export const NotesProvider: React.FC = ({ children }) => {
-  const [notes, setNotes] = useState<Note[]>(initialValue.notes);
-  const [activeNoteId, setActiveNoteId] = useState<string | undefined>(
-    initialValue.activeNoteId
-  );
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setNotes(JSON.parse(localStorage.getItem("notes") || "[]"));
+      setActiveNoteId(localStorage.getItem("activeNoteId") || null);
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
 
   useEffect(() => {
-    localStorage.setItem("activeNote", JSON.stringify(activeNoteId));
+    localStorage.setItem("activeNoteId", activeNoteId!);
   }, [activeNoteId]);
 
   const addNote = () => {
@@ -40,7 +43,7 @@ export const NotesProvider: React.FC = ({ children }) => {
       updatedAt: Date.now(),
     };
 
-    setNotes([newNote, ...notes]);
+    setNotes([...notes, newNote]);
   };
 
   const deleteNote = (id: string) => {
@@ -57,9 +60,9 @@ export const NotesProvider: React.FC = ({ children }) => {
   const value = {
     activeNoteId,
     notes,
+    setActiveNoteId,
     addNote,
     deleteNote,
-    setActiveNoteId,
     updateNote,
   };
 
