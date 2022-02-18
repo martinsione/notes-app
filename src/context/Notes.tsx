@@ -3,13 +3,13 @@ import { v4 as uuid } from "uuid";
 import type { Note } from "@/types";
 
 interface Props {
-  activeNote: Note | undefined;
+  activeNoteId: string | undefined;
   notes: Note[];
   [x: string]: any;
 }
 
 const initialValue = {
-  activeNote: undefined,
+  activeNoteId: undefined,
   notes: [],
 };
 
@@ -19,15 +19,17 @@ export const useNotesContext = () => useContext(NotesContext);
 
 export const NotesProvider: React.FC = ({ children }) => {
   const [notes, setNotes] = useState<Note[]>(initialValue.notes);
-  const [activeNote, setActiveNote] = useState(initialValue.activeNote);
+  const [activeNoteId, setActiveNoteId] = useState<string | undefined>(
+    initialValue.activeNoteId
+  );
 
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
 
   useEffect(() => {
-    localStorage.setItem("activeNote", JSON.stringify(activeNote));
-  }, [activeNote]);
+    localStorage.setItem("activeNote", JSON.stringify(activeNoteId));
+  }, [activeNoteId]);
 
   const addNote = () => {
     const newNote: Note = {
@@ -46,25 +48,18 @@ export const NotesProvider: React.FC = ({ children }) => {
   };
 
   const updateNote = (updatedNote: Note) => {
-    console.log(notes);
-    // console.log(updatedNote);
     const index = notes.findIndex((note) => note.id === updatedNote.id);
     const updatedNotes = [...notes];
     updatedNotes[index] = updatedNote;
     setNotes(updatedNotes);
-    // const updatedNotes = notes.map((note) => {
-    //   return note.id === updatedNote.id ? updatedNote : note;
-    // });
-
-    // setNotes(updatedNotes);
   };
 
   const value = {
-    activeNote,
+    activeNoteId,
     notes,
     addNote,
     deleteNote,
-    setActiveNote,
+    setActiveNoteId,
     updateNote,
   };
 

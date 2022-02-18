@@ -3,8 +3,10 @@ import ReactMarkdown from "react-markdown";
 import { useNotesContext } from "@/context/Notes";
 
 export default function Main() {
-  const { activeNote, updateNote } = useNotesContext();
+  const { activeNoteId, notes, updateNote } = useNotesContext();
   type event = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>;
+
+  const activeNote = notes.find((note) => note.id === activeNoteId);
 
   const handleChange = (e: event) => {
     updateNote({

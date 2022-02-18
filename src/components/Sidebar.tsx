@@ -2,7 +2,7 @@ import { PlusIcon, TrashIcon } from "@heroicons/react/outline";
 import { useNotesContext } from "@/context/Notes";
 
 export default function Sidebar() {
-  const { activeNote, addNote, deleteNote, notes, setActiveNote } =
+  const { activeNoteId, addNote, deleteNote, notes, setActiveNoteId } =
     useNotesContext();
 
   return (
@@ -17,10 +17,10 @@ export default function Sidebar() {
         {notes.map((note) => (
           <div
             className={`cursor-pointer transition hover:bg-slate-200 px-5 py-1 ${
-              note.id === activeNote?.id && "font-semibold bg-slate-200"
+              note.id === activeNoteId && "font-semibold bg-slate-200"
             }`}
             key={note.id}
-            onClick={() => setActiveNote(note)}
+            onClick={() => setActiveNoteId(note.id)}
           >
             <div className="flex justify-between items-center">
               <p>{note.title || "Untitled"}</p>
