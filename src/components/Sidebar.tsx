@@ -22,8 +22,10 @@ export default function Sidebar() {
             key={note.id}
             onClick={() => setActiveNoteId(note.id)}
           >
-            <div className="flex justify-between items-center">
-              <p>{note.title || "Untitled"}</p>
+            <div className="flex justify-between items-center gap-4">
+              <p className="text-ellipsis whitespace-nowrap overflow-hidden">
+                {note.title || "Untitled"}
+              </p>
               <button className="w-5" onClick={() => deleteNote(note.id)}>
                 <TrashIcon />
               </button>

@@ -2,8 +2,10 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import type { Note } from "@/types";
 
+type activeNoteId = string | undefined;
+
 interface Props {
-  activeNoteId: string | null;
+  activeNoteId: activeNoteId;
   notes: Note[];
   setActiveNoteId: (id: string) => void;
   addNote: () => void;
@@ -12,7 +14,7 @@ interface Props {
 }
 
 const initialState = {
-  activeNoteId: null,
+  activeNoteId: undefined,
   notes: [],
   setActiveNoteId: () => {},
   addNote: () => {},
@@ -26,12 +28,12 @@ export const useNotesContext = () => useContext(NotesContext);
 
 export const NotesProvider: React.FC = ({ children }) => {
   const [notes, setNotes] = useState<Note[]>([]);
-  const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
+  const [activeNoteId, setActiveNoteId] = useState<activeNoteId>(undefined);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       setNotes(JSON.parse(localStorage.getItem("notes") || "[]"));
-      setActiveNoteId(localStorage.getItem("activeNoteId") || null);
+      setActiveNoteId(localStorage.getItem("activeNoteId") || undefined);
     }
   }, []);
 
