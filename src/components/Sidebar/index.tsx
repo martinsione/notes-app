@@ -14,24 +14,27 @@ export default function Sidebar() {
         </button>
       </div>
       <div className="flex flex-col">
-        {notes.map((note) => (
-          <div
-            className={`cursor-pointer transition hover:bg-slate-200 px-5 py-1 ${
-              note.id === activeNoteId && "font-semibold bg-slate-200"
-            }`}
-            key={note.id}
-            onClick={() => setActiveNoteId(note.id)}
-          >
-            <div className="flex justify-between items-center gap-4">
-              <p className="text-ellipsis whitespace-nowrap overflow-hidden">
-                {note.title || "Untitled"}
-              </p>
-              <button className="w-5" onClick={() => deleteNote(note.id)}>
-                <TrashIcon />
-              </button>
+        {notes.map((note) => {
+          const title = JSON.parse(note.content);
+          return (
+            <div
+              className={`cursor-pointer transition hover:bg-slate-200 px-5 py-1 ${
+                note.id === activeNoteId && "font-semibold bg-slate-200"
+              }`}
+              key={note.id}
+              onClick={() => setActiveNoteId(note.id)}
+            >
+              <div className="flex justify-between items-center gap-4">
+                <p className="text-ellipsis whitespace-nowrap overflow-hidden">
+                  {title[0].children[0].text || "Untitled"}
+                </p>
+                <button className="w-5" onClick={() => deleteNote(note.id)}>
+                  <TrashIcon />
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

@@ -21,16 +21,17 @@ export default function Editor() {
   };
 
   return (
-    <div className="h-full w-full max-w-3xl mx-auto">
+    <div className="flex flex-col h-full w-full max-w-3xl mx-auto">
       {activeNote ? (
         <Plate
+          id={activeNote.id}
           editableProps={editableProps}
           onChange={handleChange}
           value={JSON.parse(activeNote.content)}
           plugins={plugins}
         />
       ) : (
-        <div>No active note</div>
+        <p className="text-4xl m-auto">No active note</p>
       )}
     </div>
   );
