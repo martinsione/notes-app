@@ -48,7 +48,10 @@ export const NotesProvider: React.FC = ({ children }) => {
   const addNote = () => {
     const newNote: Note = {
       id: uuid(),
-      content: "{}",
+      content: JSON.stringify([
+        { type: "h1", children: [{ text: "" }] },
+        { type: "p", children: [{ text: "" }] },
+      ]),
       createdAt: Date.now(),
       updatedAt: Date.now(),
     };
