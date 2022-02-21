@@ -23,7 +23,7 @@ export default function Sidebar() {
             onClick={() => setActiveNoteId(note.id)}
           >
             <div className="flex justify-between items-center gap-4">
-              <p className="text-ellipsis whitespace-nowrap overflow-hidden">
+              <p className="w-full text-ellipsis whitespace-nowrap overflow-hidden">
                 {note.content[0].children[0].text || "Untitled"}
               </p>
               <button className="w-5" onClick={() => deleteNote(note.id)}>
