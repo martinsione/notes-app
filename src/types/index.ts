@@ -1,6 +1,6 @@
 export interface Note {
   id: string;
-  content: string;
+  content?: any[] | undefined;
   createdAt: number;
   updatedAt: number;
 }

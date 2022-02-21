@@ -1,23 +1,18 @@
 import { useNotesContext } from "@/context/Notes";
-import type { Note } from "@/types";
 import { Plate } from "@udecode/plate";
 import { editableProps, plugins } from "./config";
 
 export default function Editor() {
   const { activeNoteId, notes, updateNote } = useNotesContext();
 
-  const activeNote: Note | undefined = notes.find((note) => {
+  const activeNote = notes.find((note) => {
     if (activeNoteId === undefined) return undefined;
     return note.id === activeNoteId;
   });
 
-  const handleChange = (value: any) => {
+  const handleChange = (content: any[]) => {
     // @ts-ignore
-    updateNote({
-      ...activeNote,
-      content: JSON.stringify(value),
-      updatedAt: Date.now(),
-    });
+    updateNote({ ...activeNote, content, updatedAt: Date.now() });
   };
 
   return (
@@ -27,7 +22,7 @@ export default function Editor() {
           id={activeNote.id}
           editableProps={editableProps}
           onChange={handleChange}
-          value={JSON.parse(activeNote.content)}
+          value={activeNote.content}
           plugins={plugins}
         />
       ) : (
