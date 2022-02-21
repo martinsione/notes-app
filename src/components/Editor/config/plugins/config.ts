@@ -1,6 +1,5 @@
 import {
   AutoformatPlugin,
-  createPlateUI,
   ELEMENT_BLOCKQUOTE,
   ELEMENT_CODE_BLOCK,
   ELEMENT_H1,
@@ -26,8 +25,7 @@ import {
   SoftBreakPlugin,
   TrailingBlockPlugin,
 } from "@udecode/plate";
-import { EditableProps } from "slate-react/dist/components/editable";
-import { autoformatRules } from "./autoformat/autoformatRules";
+import { autoformatRules } from "../autoformat/autoformatRules";
 
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
@@ -35,8 +33,6 @@ const resetBlockTypesCommonRule = {
 };
 
 export const CONFIG: {
-  components: Record<string, any>;
-  editableProps: EditableProps;
   align: Partial<PlatePlugin>;
   autoformat: Partial<PlatePlugin<{}, AutoformatPlugin>>;
   exitBreak: Partial<PlatePlugin<{}, ExitBreakPlugin>>;
@@ -48,15 +44,6 @@ export const CONFIG: {
   softBreak: Partial<PlatePlugin<{}, SoftBreakPlugin>>;
   trailingBlock: Partial<PlatePlugin<{}, TrailingBlockPlugin>>;
 } = {
-  editableProps: {
-    spellCheck: false,
-    autoFocus: false,
-    placeholder: "Type…",
-    style: {
-      padding: "15px",
-    },
-  },
-  components: createPlateUI(),
   align: {
     inject: {
       props: {
@@ -70,6 +57,37 @@ export const CONFIG: {
           ELEMENT_H6,
         ],
       },
+    },
+  },
+  autoformat: {
+    options: {
+      rules: autoformatRules,
+    },
+  },
+  exitBreak: {
+    options: {
+      rules: [
+        {
+          hotkey: "mod+enter",
+        },
+        {
+          hotkey: "mod+shift+enter",
+          before: true,
+        },
+        {
+          hotkey: "enter",
+          query: {
+            start: true,
+            end: true,
+            allow: KEYS_HEADING,
+          },
+        },
+      ],
+    },
+  },
+  forceLayout: {
+    options: {
+      rules: [{ path: [0], strictType: ELEMENT_H1 }],
     },
   },
   indent: {
@@ -122,7 +140,13 @@ export const CONFIG: {
       ],
     },
   },
-  trailingBlock: { type: ELEMENT_PARAGRAPH },
+  selectOnBackspace: {
+    options: {
+      query: {
+        allow: [ELEMENT_IMAGE, ELEMENT_HR],
+      },
+    },
+  },
   softBreak: {
     options: {
       rules: [
@@ -136,42 +160,5 @@ export const CONFIG: {
       ],
     },
   },
-  exitBreak: {
-    options: {
-      rules: [
-        {
-          hotkey: "mod+enter",
-        },
-        {
-          hotkey: "mod+shift+enter",
-          before: true,
-        },
-        {
-          hotkey: "enter",
-          query: {
-            start: true,
-            end: true,
-            allow: KEYS_HEADING,
-          },
-        },
-      ],
-    },
-  },
-  selectOnBackspace: {
-    options: {
-      query: {
-        allow: [ELEMENT_IMAGE, ELEMENT_HR],
-      },
-    },
-  },
-  autoformat: {
-    options: {
-      rules: autoformatRules,
-    },
-  },
-  forceLayout: {
-    options: {
-      rules: [{ path: [0], strictType: ELEMENT_H1 }],
-    },
-  },
+  trailingBlock: { type: ELEMENT_PARAGRAPH },
 };
