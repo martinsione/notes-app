@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "1.0.5",
+    "@styled-icons/material": "10.34.0",
     "@udecode/plate": "10.0.0",
     "next": "12.1.0",
     "react": "17.0.2",

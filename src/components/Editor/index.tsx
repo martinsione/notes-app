@@ -1,6 +1,8 @@
 import { useNotesContext } from "@/context/Notes";
 import { Plate } from "@udecode/plate";
+import { MarkBallonToolbar } from "./config/components";
 import { editableProps, plugins } from "./config";
+import "tippy.js/dist/tippy.css";
 
 export default function Editor() {
   const { activeNoteId, notes, updateNote } = useNotesContext();
@@ -24,7 +26,9 @@ export default function Editor() {
           onChange={handleChange}
           value={activeNote.content}
           plugins={plugins}
-        />
+        >
+          <MarkBallonToolbar />
+        </Plate>
       ) : (
         <p className="text-4xl m-auto">No active note</p>
       )}

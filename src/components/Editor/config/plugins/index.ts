@@ -30,7 +30,7 @@ import {
   createTrailingBlockPlugin,
   createUnderlinePlugin,
 } from "@udecode/plate";
-import { withStyledPlaceHolders } from "../components/withStyledPlaceHolders";
+import { withStyledPlaceHolders } from "../components";
 import { CONFIG } from "./config";
 
 let components = createPlateUI();
