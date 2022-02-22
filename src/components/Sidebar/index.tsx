@@ -7,7 +7,7 @@ export default function Sidebar() {
     useNotesContext();
 
   return (
-    <Resize>
+    <Resize minWidth={200} maxWidth={500}>
       <div className="w-full flex-col overflow-y-auto">
         <div className="flex justify-between items-center p-5">
           <p className="text-4xl font-bold">Notes</p>

@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export default function Resize({ children }: { children: React.ReactNode }) {
+export default function Resize({
+  minWidth,
+  maxWidth,
+  children,
+}: {
+  minWidth: number;
+  maxWidth: number;
+  children: React.ReactNode;
+}) {
   const sidebarRef = useRef(null);
   const [isResizing, setIsResizing] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(268);
@@ -8,9 +16,6 @@ export default function Resize({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setSidebarWidth(Number(localStorage.getItem("sidebarWidth")) || 268);
   }, []);
-
-  const MIN_WIDTH = 200;
-  const MAX_WIDTH = 500;
 
   const startResizing = useCallback(() => {
     setIsResizing(true);
@@ -26,14 +31,13 @@ export default function Resize({ children }: { children: React.ReactNode }) {
         let calc =
           // @ts-ignore
           mouseEvent.clientX - sidebarRef.current.getBoundingClientRect().left;
-        // If calc < MIN_WIDTH, set to MIN_WIDTH, else if calc > MAX_WIDTH, set to MAX_WIDTH, else set to calc
-        calc = Math.min(Math.max(calc, MIN_WIDTH), MAX_WIDTH);
+        // If calc < minWidth, set to minWidth, else if calc > maxWidth, set to maxWidth, else set to calc
+        calc = Math.min(Math.max(calc, minWidth), maxWidth);
         setSidebarWidth(calc);
         localStorage.setItem("sidebarWidth", calc.toString());
       }
     },
-
-    [isResizing]
+    [isResizing, minWidth, maxWidth]
   );
 
   useEffect(() => {
