@@ -36,8 +36,6 @@ export default function Resize({ children }: { children: React.ReactNode }) {
     [isResizing]
   );
 
-  console.log(sidebarWidth);
-
   useEffect(() => {
     window.addEventListener("mousemove", resize);
     window.addEventListener("mouseup", stopResizing);
