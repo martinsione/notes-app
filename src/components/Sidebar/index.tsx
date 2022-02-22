@@ -8,7 +8,7 @@ export default function Sidebar() {
 
   return (
     <Resize>
-      <div className="w-full flex-col">
+      <div className="w-full flex-col overflow-y-auto">
         <div className="flex justify-between items-center p-5">
           <p className="text-4xl font-bold">Notes</p>
           <button className="w-8 text-black" onClick={addNote}>

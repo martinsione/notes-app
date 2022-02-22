@@ -7,6 +7,16 @@
     color: #000;
     font-family: "Roboto", sans-serif;
   }
+  *::-webkit-scrollbar {
+    width: 8px; /* Total width including `border-width` of scrollbar thumb */
+  }
+  *::-webkit-scrollbar-thumb {
+    @apply bg-neutral-400;
+    background-clip: padding-box;
+  }
+  *::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
   ol,
   ul,
   menu {
