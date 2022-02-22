@@ -1,8 +1,8 @@
 import { useNotesContext } from "@/context/Notes";
 import { Plate } from "@udecode/plate";
-import { MarkBallonToolbar } from "./config/components";
-import { editableProps, plugins } from "./config";
 import "tippy.js/dist/tippy.css";
+import { editableProps, plugins } from "./config";
+import { MarkBallonToolbar } from "./config/components";
 
 export default function Editor() {
   const { activeNoteId, notes, updateNote } = useNotesContext();

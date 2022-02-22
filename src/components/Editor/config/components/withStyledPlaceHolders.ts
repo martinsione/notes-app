@@ -1,5 +1,7 @@
 import {
   ELEMENT_H1,
+  ELEMENT_H2,
+  ELEMENT_H3,
   ELEMENT_PARAGRAPH,
   PlatePluginComponent,
   withPlaceholders,
@@ -16,7 +18,17 @@ export const withStyledPlaceHolders = (
     },
     {
       key: ELEMENT_H1,
-      placeholder: "Untitled",
+      placeholder: "Heading 1",
+      hideOnBlur: false,
+    },
+    {
+      key: ELEMENT_H2,
+      placeholder: "Heading 2",
+      hideOnBlur: false,
+    },
+    {
+      key: ELEMENT_H3,
+      placeholder: "Heading 3",
       hideOnBlur: false,
     },
   ]);

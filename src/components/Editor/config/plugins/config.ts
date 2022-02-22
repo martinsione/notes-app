@@ -5,9 +5,6 @@ import {
   ELEMENT_H1,
   ELEMENT_H2,
   ELEMENT_H3,
-  ELEMENT_H4,
-  ELEMENT_H5,
-  ELEMENT_H6,
   ELEMENT_HR,
   ELEMENT_IMAGE,
   ELEMENT_PARAGRAPH,
@@ -47,15 +44,7 @@ export const CONFIG: {
   align: {
     inject: {
       props: {
-        validTypes: [
-          ELEMENT_PARAGRAPH,
-          ELEMENT_H1,
-          ELEMENT_H2,
-          ELEMENT_H3,
-          ELEMENT_H4,
-          ELEMENT_H5,
-          ELEMENT_H6,
-        ],
+        validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
       },
     },
   },
@@ -98,9 +87,6 @@ export const CONFIG: {
           ELEMENT_H1,
           ELEMENT_H2,
           ELEMENT_H3,
-          ELEMENT_H4,
-          ELEMENT_H5,
-          ELEMENT_H6,
           ELEMENT_BLOCKQUOTE,
           ELEMENT_CODE_BLOCK,
         ],
@@ -112,15 +98,7 @@ export const CONFIG: {
       props: {
         defaultNodeValue: 1.5,
         validNodeValues: [1, 1.2, 1.5, 2, 3],
-        validTypes: [
-          ELEMENT_PARAGRAPH,
-          ELEMENT_H1,
-          ELEMENT_H2,
-          ELEMENT_H3,
-          ELEMENT_H4,
-          ELEMENT_H5,
-          ELEMENT_H6,
-        ],
+        validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
       },
     },
   },

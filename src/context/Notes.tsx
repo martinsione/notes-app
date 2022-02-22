@@ -1,6 +1,6 @@
+import type { Note } from "@/types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
-import type { Note } from "@/types";
 
 type ActiveNoteId = string | null;
 
@@ -49,7 +49,7 @@ export const NotesProvider: React.FC = ({ children }) => {
     const newNote: Note = {
       id: uuid(),
       content: [
-        { type: "h1", children: [{ text: "" }] },
+        { type: "h1", children: [{ text: "", bold: true }] },
         { type: "p", children: [{ text: "" }] },
       ],
       createdAt: Date.now(),
