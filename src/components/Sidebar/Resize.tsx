@@ -5,6 +5,10 @@ export default function Resize({ children }: { children: React.ReactNode }) {
   const [isResizing, setIsResizing] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(268);
 
+  useEffect(() => {
+    setSidebarWidth(Number(localStorage.getItem("sidebarWidth")) || 268);
+  }, []);
+
   const MIN_WIDTH = 200;
   const MAX_WIDTH = 500;
 
@@ -19,19 +23,16 @@ export default function Resize({ children }: { children: React.ReactNode }) {
   const resize = useCallback(
     (mouseEvent) => {
       if (isResizing && sidebarRef.current) {
-        const calc =
+        let calc =
           // @ts-ignore
           mouseEvent.clientX - sidebarRef.current.getBoundingClientRect().left;
-
-        if (calc < MIN_WIDTH) {
-          setSidebarWidth(MIN_WIDTH);
-        } else if (calc > MAX_WIDTH) {
-          setSidebarWidth(MAX_WIDTH);
-        } else {
-          setSidebarWidth(calc);
-        }
+        // If calc < MIN_WIDTH, set to MIN_WIDTH, else if calc > MAX_WIDTH, set to MAX_WIDTH, else set to calc
+        calc = Math.min(Math.max(calc, MIN_WIDTH), MAX_WIDTH);
+        setSidebarWidth(calc);
+        localStorage.setItem("sidebarWidth", calc.toString());
       }
     },
+
     [isResizing]
   );
 
@@ -49,13 +50,13 @@ export default function Resize({ children }: { children: React.ReactNode }) {
   return (
     <div
       ref={sidebarRef}
-      className="w-full bg-neutral-50 flex justify-between"
+      className="w-full bg-neutral-50 flex justify-between shadow-md"
       style={{ width: sidebarWidth }}
       onMouseDown={(e) => e.preventDefault()}
     >
       {children}
       <div
-        className="w-2 flex-grow-0 flex-shrink-0 resize-y cursor-ew-resize hover:bg-neutral-300"
+        className="w-1 flex-grow-0 flex-shrink-0 resize-y cursor-ew-resize hover:bg-neutral-200"
         onMouseDown={startResizing}
       />
     </div>
