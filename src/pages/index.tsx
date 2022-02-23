@@ -1,4 +1,4 @@
-import Editor from "@/components/Editor";
+import EditorContainer from "@/components/Editor";
 import Sidebar from "@/components/Sidebar";
 import { NotesProvider } from "@/context/Notes";
 
@@ -7,9 +7,7 @@ export default function Home() {
     <div className="h-screen w-screen max-w-screen flex">
       <NotesProvider>
         <Sidebar />
-        <div className="flex-1 overflow-y-auto">
-          <Editor />
-        </div>
+        <EditorContainer />
       </NotesProvider>
     </div>
   );
